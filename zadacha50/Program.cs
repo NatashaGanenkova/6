@@ -1,6 +1,7 @@
 ﻿using System;
 using static System.Console;
 
+Clear();
 
 Write("Введите количество строк массива: ");
 int rows=int.Parse(ReadLine());
@@ -8,11 +9,17 @@ Write("Введите количество столбцов массива: ");
 int columns=int.Parse(ReadLine());
 int[,] array = GetArray(rows, columns,0,10);
 PrintArray(array);
-Write("Введите строку элемента: ");
-int elementR=int.Parse(ReadLine());
-Write("Введите столбец элемента: ");
-int elementС=int.Parse(ReadLine());
-FindElement(array,elementR,elementС);
+Write("Введите значение элемента: ");
+int element=int.Parse(ReadLine());
+if(FindElement(array,element))
+{
+    WriteLine("Элемент найден");
+}
+else
+{
+    WriteLine("Элемент не найден");
+}
+
 int[,] GetArray(int m, int n, int min, int max)
 {
     int[,] result = new int[m, n];
@@ -39,16 +46,14 @@ void PrintArray(int[,] inArray)
     }
 }
 
-void FindElement(int[,] array, int row, int col)
+bool FindElement(int[,] array, int el)
 {
-    if(array.GetLength(0)< row ||array.GetLength(1)<col||row<0||col<0)
+    for (int i = 0; i < array.GetLength(0); i++)
     {
-        WriteLine("Такого элемента нет");
-    }        
-    else 
-    {
-        WriteLine(array[row,col]);
-        
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if (array[i, j]==el) return true;
+        }
     }
-   
+    return false;
 }
